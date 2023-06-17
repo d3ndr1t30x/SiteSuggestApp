@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>cd58312f-6172-416d-8fa7-f933f6290302</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\iwhit\source\repos\SuggestionApp\SuggestionAppUI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\iwhit\source\repos\SuggestionApp\SuggestionAppUI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Components\" />
+    <Folder Include="wwwroot\css\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.11.1" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.11.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SuggestionAppLibrary\SuggestionAppLibrary.csproj" />
+  </ItemGroup>
+
+</Project>
