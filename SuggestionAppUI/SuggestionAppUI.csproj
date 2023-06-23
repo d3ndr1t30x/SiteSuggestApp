@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\SampleData.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\iwhit\source\repos\SuggestionApp\SuggestionAppUI\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="C:\Users\iwhit\source\repos\SuggestionApp\SuggestionAppUI\.editorconfig" />
+    <None Include="Pages\SampleData.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +32,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SuggestionAppLibrary\SuggestionAppLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\SampleData.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\SampleData.razor" />
   </ItemGroup>
 
 </Project>
