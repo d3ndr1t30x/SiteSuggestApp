@@ -1,0 +1,99 @@
+﻿@page "/SampleData"
+@inject ICategoryData categoryData
+@inject IStatusData statusData
+
+<h3>Sample Data</h3>
+<button class="btn btnbtn-primary" onclick="CreateCategories">Create Categories</button>
+<button class="btn btnbtn-primary" onclick="CreateStatuses">Create Categories</button>
+
+
+@code {
+    bool categoriesCreated = false;
+
+    private async Task CreateCategories()
+    {
+        var categories = await categoryData.GetAllCategories();
+
+        if (categories?.Count > 0)
+        {
+            return;
+        }
+
+        CategoryModel cat = new()
+            {
+                CategoryName = "Courses",
+                CategoryDescription = "Full paid courses."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "Dev Questions",
+                CategoryDescription = "Advice on being a developer."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "In-Depth Tutorial",
+                CategoryDescription = "A deep dive on a video on how to use a topic."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "10 minute training",
+                CategoryDescription = "A quick \"How do I use this\" video."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "Other",
+                CategoryDescription = "Not sure which category this fits in."
+            };
+        await categoryData.CreateCategory(cat);
+    }
+
+    private async Task CreateStatuses()
+    {
+        var statuses = await statusData.GetAllStatuses();
+
+        if (statuses?.Count > 0)
+        {
+            return;
+
+        }
+
+        StatusModel stat = new()
+        {
+            StatusName = "Completed",
+            StatusDescription = "The suggestion was accepted and the corresponding item was created."
+        };
+        await statusData.CreateStatuses(stat);
+
+        stat = new()
+            {
+                StatusName = "Watching",
+                StatusDescription = "The suggestion is interesting. We are watching to see how much interest there is in it."
+            };
+        await statusData.CreateStatuses(stat);
+
+        stat = new()
+            {
+                StatusName = "Upcoming",
+                StatusDescription = "The suggestion was accepted and will be released soon."
+            };
+        await statusData.CreateStatuses(stat);
+
+
+        stat = new()
+            {
+                StatusName = "Dismissed",
+                StatusDescription = "The suggestion was rejected."
+            };
+        await statusData.CreateStatuses(stat);
+
+    }
+
+}
