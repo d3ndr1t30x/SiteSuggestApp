@@ -1,35 +1,34 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 
-namespace SuggestionAppLibrary.DataAccess
+namespace SuggestionAppLibrary.DataAccess;
+
+public class MongoCategoryData : ICategoryData
 {
-    public class MongoCategoryData : ICategoryData
+    private readonly IMongoCollection<CategoryModel> _categories;
+    private readonly IMemoryCache _cache;
+    private const string cacheName = "Category";
+
+    public MongoCategoryData(IDbConnection db, IMemoryCache cache)
     {
-        private readonly IMongoCollection<CategoryModel> _categories;
-        private readonly IMemoryCache _cache;
-        private const string cacheName = "Category";
+        _cache = cache;
+        _categories = db.CategoryCollection;
+    }
 
-        public MongoCategoryData(IDbConnection db, IMemoryCache cache)
+    public async Task<List<CategoryModel>> GetAllCategories()
+    {
+        var output = _cache.Get<List<CategoryModel>>(cacheName);
+        if (output is null)
         {
-            _cache = cache;
-            _categories = db.CategoryCollection;
+            var results = await _categories.FindAsync(_ => true);
+            output = results.ToList();
+
+            _cache.Set(cacheName, output, TimeSpan.FromDays(value: 1));
         }
 
-        public async Task<List<CategoryModel>> GetAllCategories()
-        {
-            var output = _cache.Get<List<CategoryModel>>(cacheName);
-            if (output is null)
-            {
-                var results = await _categories.FindAsync(_ => true);
-                output = results.ToList();
-
-                _cache.Set(cacheName, output, TimeSpan.FromDays(value: 1));
-            }
-
-            return output;
-        }
-        public Task CreateCategory(CategoryModel category)
-        {
-            return _categories.InsertOneAsync(category);
-        }
+        return output;
+    }
+    public Task CreateCategory(CategoryModel category)
+    {
+        return _categories.InsertOneAsync(category);
     }
 }
